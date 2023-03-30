@@ -1,4 +1,4 @@
-# ViewRefer: Grasp the Multi-view Knowledge for 3D Visual Grounding
+# ViewRefer: Grasp the Multi-view Knowledge for 3D Visual Grounding with GPT and Prototype Guidance
 
 Official implementation of ['ViewRefer: Grasp the Multi-view Knowledge for 3D Visual Grounding with GPT and Prototype Guidance'](https://arxiv.org/pdf/2303.16894.pdf).
 
