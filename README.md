@@ -22,6 +22,8 @@ you can download the pretrained weight in [this page](https://huggingface.co/ber
 
 you can download the CSV of Sr3d from GPT in [this page](), and put them into the folder './data'.
 
+you can download the result checkpoint and log of ViewRefer on Sr3d in [this page]() for test.
+
 ## Training
 * To train on Sr3d dataset, use the following commands
 
