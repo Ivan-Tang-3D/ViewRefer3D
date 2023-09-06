@@ -9,4 +9,101 @@ We propose ViewRefer, a multi-view framework for 3D visual grounding, which gras
   <img src="pipeline.png"/>
 </div>
 
-Code will be available in a few days.
+We release the code on the Sr3d Dataset.
+
+## Installation and Data Preparation
+Please refer the installation and data preparation from [referit3d](https://github.com/referit3d/referit3d).
+
+We adopt bert-base-uncased from huggingface, which can be installed using pip as follows:
+```Console
+pip install transformers
+```
+you can download the pretrained weight in [this page](https://huggingface.co/bert-base-uncased/tree/main), and put them into a folder, noted as PATH_OF_BERT.
+
+you can download the CSV of Sr3d from GPT in [this page](), and put them into the folder './data'.
+
+## Training
+* To train on Sr3d dataset, use the following commands
+
+```Console
+    SR3D_GPT='./referit3d_3dvg/data/sr3d_gpt.csv'
+    PATH_OF_SCANNET_FILE='./referit3d_3dvg/data/keep_all_points_with_global_scan_alignment.pkl'
+    PATH_OF_REFERIT3D_FILE=${SR3D_GPT}
+    PATH_OF_BERT='./referit3d_3dvg/data/bert'
+
+    VIEW_NUM=4
+    EPOCH=100
+    DATA_NAME=SR3D
+    EXT=ViewRefer
+    DECODER=4
+    NAME=${DATA_NAME}_${VIEW_NUM}view_${EPOCH}ep_${EXT}
+    TRAIN_FILE=train_referit3d
+
+    TYPE=reserved
+    srun -p optimal --quotatype=${TYPE} --gres=gpu:1 -J bash  python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
+    -scannet-file ${PATH_OF_SCANNET_FILE} \
+    -referit3D-file ${PATH_OF_REFERIT3D_FILE} \
+    --bert-pretrain-path ${PATH_OF_BERT} \
+    --log-dir logs/results/${NAME} \
+    --model 'referIt3DNet_transformer' \
+    --unit-sphere-norm True \
+    --batch-size 24 \
+    --n-workers 8 \
+    --max-train-epochs ${EPOCH} \
+    --encoder-layer-num 3 \
+    --decoder-layer-num ${DECODER} \
+    --decoder-nhead-num 8 \
+    --view_number ${VIEW_NUM} \
+    --rotate_number 4 \
+    --label-lang-sup True > ./logs/results/${NAME}.log 2>&1 &
+```
+
+## Validation
+* After each epoch of the training, the program will automatically evaluate the performance of the current model. Our code will save the last model in the training as **last_model.pth**, and save the best model following the original Referit3D's repo as **best_model.pth**.
+
+## Test
+* At test time, the **analyze_predictions** will run following the original code of Referit3D. 
+* The **analyze_predictions** will test the model multiple times, each time using a different random seed. With different random seeds, the sampled point clouds of each object are different. The average accuracy and std will be reported. 
+
+* To test on either Nr3d or Sr3d dataset, use the following commands
+```Console
+    python referit3d/scripts/train_referit3d.py \
+    --mode evaluate \
+    -scannet-file $PATH_OF_SCANNET_FILE$ \
+    -referit3D-file $PATH_OF_REFERIT3D_FILE$ \
+    --bert-pretrain-path $PATH_OF_BERT$ \
+    --log-dir logs/MVT_nr3d \
+    --resume-path $the_path_to_the_model.pth$ \
+    --n-workers 8 \
+    --model 'referIt3DNet_transformer' \
+    --unit-sphere-norm True \
+    --batch-size 24 \
+    --encoder-layer-num 3 \
+    --decoder-layer-num 4 \
+    --decoder-nhead-num 8 \
+    --gpu "0" \
+    --view_number 4 \
+    --rotate_number 4 \
+    --label-lang-sup True
+```
+* To test on joint trained model, add the following argument to the above command
+```Console
+    --augment-with-sr3d sr3d_dataset_file.csv
+``` 
+
+For ScanRefer dataset, please refer [MVT_ScanRefer](https://github.com/sega-hsj/MVT_ScanRefer).
+
+## Citation
+```
+@inproceedings{huang2022multi,
+  title={Multi-View Transformer for 3D Visual Grounding},
+  author={Huang, Shijia and Chen, Yilun and Jia, Jiaya and Wang, Liwei},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={15524--15533},
+  year={2022}
+}
+```
+
+## Credits
+The project is built based on the following repository:
+* [ReferIt3D](https://github.com/referit3d/referit3d).
