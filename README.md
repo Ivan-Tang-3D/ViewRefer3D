@@ -20,9 +20,9 @@ pip install transformers
 ```
 you can download the pretrained weight in [this page](https://huggingface.co/bert-base-uncased/tree/main), and put them into a folder, noted as PATH_OF_BERT.
 
-you can download the CSV of Sr3d from GPT in [this page](), and put them into the folder './data'.
+you can download the CSV of Sr3d from GPT in [this page](https://drive.google.com/file/d/1_DiTa4dhRPEy9htJiXnNcE4b9_lMn-nG/view?usp=sharing), and put them into the folder './data'.
 
-you can download the result checkpoint and log of ViewRefer on Sr3d in [this page]() for test.
+you can download the result checkpoint and log of ViewRefer on Sr3d in [this page](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtEj6Jqth54Jc?usp=sharing) for test.
 
 ## Training
 * To train on Sr3d dataset, use the following commands
