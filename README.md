@@ -28,7 +28,7 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
 * To train on Sr3d dataset, use the following commands
 
 ```Console
-    SR3D_GPT='./referit3d_3dvg/data/sr3d_gpt.csv'
+    SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
     PATH_OF_SCANNET_FILE='./referit3d_3dvg/data/keep_all_points_with_global_scan_alignment.pkl'
     PATH_OF_REFERIT3D_FILE=${SR3D_GPT}
     PATH_OF_BERT='./referit3d_3dvg/data/bert'
@@ -70,7 +70,7 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
 * To test on Sr3d dataset, use the following commands
 
 ```Console
-    SR3D_GPT='./referit3d_3dvg/data/sr3d_gpt.csv'
+    SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
     PATH_OF_SCANNET_FILE='./referit3d_3dvg/data/keep_all_points_with_global_scan_alignment.pkl'
     PATH_OF_REFERIT3D_FILE=${SR3D_GPT}
     PATH_OF_BERT='./referit3d_3dvg/data/bert'
