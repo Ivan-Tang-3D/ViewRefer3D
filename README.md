@@ -9,7 +9,7 @@ We propose ViewRefer, a multi-view framework for 3D visual grounding, which gras
   <img src="pipeline.png"/>
 </div>
 
-We release the code on the Sr3d Dataset soon.
+We have released the code on the Sr3d Dataset.
 
 ## Installation and Data Preparation
 Please refer the installation and data preparation from [referit3d](https://github.com/referit3d/referit3d).
