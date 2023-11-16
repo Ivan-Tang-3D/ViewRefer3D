@@ -25,11 +25,9 @@ Download the [pre-trained BERT](https://huggingface.co/bert-base-uncased/tree/ma
 
 Download [GPT-expanded Sr3D dataset](https://drive.google.com/file/d/1_DiTa4dhRPEy9htJiXnNcE4b9_lMn-nG/view?usp=sharing), and put them into the folder './data'.
 
-Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtEj6Jqth54Jc?usp=sharing) for the checkpoint and training log of ViewRefer on Sr3d dataset.
-
 ## Getting Started
 ### Training
-* To train on Sr3d dataset, run:
+* To train on Sr3D dataset, run:
 
 ```bash
     SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
@@ -45,7 +43,7 @@ Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtE
     NAME=${DATA_NAME}_${VIEW_NUM}view_${EPOCH}ep_${EXT}
     TRAIN_FILE=train_referit3d
 
-    bash python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
+    python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
     -scannet-file ${PATH_OF_SCANNET_FILE} \
     -referit3D-file ${PATH_OF_REFERIT3D_FILE} \
     --bert-pretrain-path ${PATH_OF_BERT} \
@@ -63,8 +61,10 @@ Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtE
     --label-lang-sup True
 ```
 
+* Refer to [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtEj6Jqth54Jc?usp=sharing) for the checkpoint and training log of ViewRefer on Sr3D dataset.
+
 ### Test
-* To test on Sr3d dataset, run:
+* To test on Sr3D dataset, run:
 
 ```bash
     SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
@@ -80,7 +80,7 @@ Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtE
     NAME=${DATA_NAME}_${VIEW_NUM}view_${EPOCH}ep_${EXT}
     TRAIN_FILE=train_referit3d
 
-    bash python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
+    python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
     --mode evaluate \
     -scannet-file ${PATH_OF_SCANNET_FILE} \
     -referit3D-file ${PATH_OF_REFERIT3D_FILE} \
@@ -101,7 +101,7 @@ Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtE
 ```
 
 ## Acknowledgement
-This repo benefits from [ReferIt3D](https://github.com/referit3d/referit3d). Thanks for their wonderful work.
+This repo benefits from [ReferIt3D](https://github.com/referit3d/referit3d) and [MVT-3DVG](https://github.com/sega-hsj/MVT-3DVG). Thanks for their wonderful works.
 
 ## Citation
 ```bash
@@ -114,4 +114,4 @@ This repo benefits from [ReferIt3D](https://github.com/referit3d/referit3d). Tha
 ```
 
 ## Contact
-If you have any question about this project, please feel free to contact tangyiwen@pjlab.org.cn.
+If you have any questions about this project, please feel free to contact tangyiwen@pjlab.org.cn.
