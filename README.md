@@ -2,32 +2,36 @@
 
 Official implementation of ['ViewRefer: Grasp the Multi-view Knowledge for 3D Visual Grounding with GPT and Prototype Guidance'](https://arxiv.org/pdf/2303.16894.pdf).
 
-## ViewRefer
-We propose ViewRefer, a multi-view framework for 3D visual grounding, which grasps view knowledge to alleviate the challenging view discrepancy issue. For the text and 3D modalities, we respectively introduce LLM-expanded grounding texts and a fusion transformer for capturing multi-view information. We present multi-view prototypes to provide highlevel guidance to our framework, which contributes to superior 3D grounding performance.
+The paper has been accepted by **ICCV 2023**.
+
+## News
+* We release the GPT-expanded Sr3D dataset and the training code of ViewRefer 📌.
+  
+## Introduction
+ViewRefer is a multi-view framework for 3D visual grounding, which grasps view knowledge to alleviate the challenging view discrepancy issue. For the text and 3D modalities, we respectively introduce LLM-expanded grounding texts and a fusion transformer for capturing multi-view information. We present multi-view prototypes to provide highlevel guidance to our framework, which contributes to superior 3D grounding performance.
 
 <div align="center">
   <img src="pipeline.png"/>
 </div>
 
-We have released the code on the Sr3d Dataset.
+## Requirements
+Please refer to [referit3d](https://github.com/referit3d/referit3d) for the installation and data preparation.
 
-## Installation and Data Preparation
-Please refer the installation and data preparation from [referit3d](https://github.com/referit3d/referit3d).
-
-We adopt bert-base-uncased from huggingface, which can be installed using pip as follows:
-```Console
+We adopt pre-trained BERT from huggingface. Please install related packages:
+```bash
 pip install transformers
 ```
-you can download the pretrained weight in [this page](https://huggingface.co/bert-base-uncased/tree/main), and put them into a folder, noted as PATH_OF_BERT.
+Download the [pre-trained BERT](https://huggingface.co/bert-base-uncased/tree/main), and put them into a folder, noted as PATH_OF_BERT.
 
-you can download the CSV of Sr3d from GPT in [this page](https://drive.google.com/file/d/1_DiTa4dhRPEy9htJiXnNcE4b9_lMn-nG/view?usp=sharing), and put them into the folder './data'.
+Download [GPT-expanded Sr3D dataset](https://drive.google.com/file/d/1_DiTa4dhRPEy9htJiXnNcE4b9_lMn-nG/view?usp=sharing), and put them into the folder './data'.
 
-you can download the result checkpoint and log of ViewRefer on Sr3d in [this page](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtEj6Jqth54Jc?usp=sharing) for test.
+Check [this link](https://drive.google.com/drive/folders/1YqD7OklOl2rdXyG5aubLtEj6Jqth54Jc?usp=sharing) for the checkpoint and training log of ViewRefer on Sr3d dataset.
 
-## Training
-* To train on Sr3d dataset, use the following commands
+## Getting Started
+### Training
+* To train on Sr3d dataset, run:
 
-```Console
+```bash
     SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
     PATH_OF_SCANNET_FILE='./referit3d_3dvg/data/keep_all_points_with_global_scan_alignment.pkl'
     PATH_OF_REFERIT3D_FILE=${SR3D_GPT}
@@ -41,8 +45,7 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
     NAME=${DATA_NAME}_${VIEW_NUM}view_${EPOCH}ep_${EXT}
     TRAIN_FILE=train_referit3d
 
-    TYPE=reserved
-    srun -p optimal --quotatype=${TYPE} --gres=gpu:1 -J bash  python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
+    bash python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
     -scannet-file ${PATH_OF_SCANNET_FILE} \
     -referit3D-file ${PATH_OF_REFERIT3D_FILE} \
     --bert-pretrain-path ${PATH_OF_BERT} \
@@ -57,19 +60,13 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
     --decoder-nhead-num 8 \
     --view_number ${VIEW_NUM} \
     --rotate_number 4 \
-    --label-lang-sup True > ./logs/results/${NAME}.log 2>&1 &
+    --label-lang-sup True
 ```
 
-## Validation
-* After each epoch of the training, the program will automatically evaluate the performance of the current model. Our code will save the last model in the training as **last_model.pth**, and save the best model following the original Referit3D's repo as **best_model.pth**.
+### Test
+* To test on Sr3d dataset, run:
 
-## Test
-* At test time, the **analyze_predictions** will run following the original code of Referit3D. 
-* The **analyze_predictions** will test the model multiple times, each time using a different random seed. With different random seeds, the sampled point clouds of each object are different. The average accuracy and std will be reported. 
-
-* To test on Sr3d dataset, use the following commands
-
-```Console
+```bash
     SR3D_GPT='./referit3d_3dvg/data/Sr3D_release.csv'
     PATH_OF_SCANNET_FILE='./referit3d_3dvg/data/keep_all_points_with_global_scan_alignment.pkl'
     PATH_OF_REFERIT3D_FILE=${SR3D_GPT}
@@ -83,8 +80,7 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
     NAME=${DATA_NAME}_${VIEW_NUM}view_${EPOCH}ep_${EXT}
     TRAIN_FILE=train_referit3d
 
-    TYPE=reserved
-    srun -p optimal --quotatype=${TYPE} --gres=gpu:1 -J bash  python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
+    bash python -u ./referit3d_3dvg/scripts/${TRAIN_FILE}.py \
     --mode evaluate \
     -scannet-file ${PATH_OF_SCANNET_FILE} \
     -referit3D-file ${PATH_OF_REFERIT3D_FILE} \
@@ -101,9 +97,21 @@ you can download the result checkpoint and log of ViewRefer on Sr3d in [this pag
     --decoder-nhead-num 8 \
     --view_number ${VIEW_NUM} \
     --rotate_number 4 \
-    --label-lang-sup True > ./logs/results/${NAME}.log 2>&1 &
+    --label-lang-sup True
 ```
 
-## Credits
-The project is built based on the following repository:
-* [ReferIt3D](https://github.com/referit3d/referit3d).
+## Acknowledgement
+This repo benefits from [ReferIt3D](https://github.com/referit3d/referit3d). Thanks for their wonderful work.
+
+## Citation
+```bash
+@article{guo2023viewrefer,
+  title={ViewRefer: Grasp the Multi-view Knowledge for 3D Visual Grounding with GPT and Prototype Guidance},
+  author={Guo, Ziyu and Tang, Yiwen and Zhang, Renrui and Wang, Dong and Wang, Zhigang and Zhao, Bin and Li, Xuelong},
+  journal={arXiv preprint arXiv:2303.16894},
+  year={2023}
+}
+```
+
+## Contact
+If you have any question about this project, please feel free to contact tangyiwen@pjlab.org.cn.
