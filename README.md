@@ -23,7 +23,7 @@ pip install transformers
 ```
 Download the [pre-trained BERT](https://huggingface.co/bert-base-uncased/tree/main), and put them into a folder, noted as PATH_OF_BERT.
 
-Download [GPT-expanded Sr3D dataset](https://drive.google.com/file/d/1_DiTa4dhRPEy9htJiXnNcE4b9_lMn-nG/view?usp=sharing), and put them into the folder './data'.
+Download [GPT-expanded Sr3D dataset](https://drive.google.com/file/d/1mb_XYZx_WB_einPNcbO-vqckh0DxJXws/view?usp=sharing), and put them into the folder './data'.
 
 ## Getting Started
 ### Training
