@@ -6,6 +6,7 @@ The paper has been accepted by **ICCV 2023**.
 
 ## News
 * We release the GPT-expanded Sr3D dataset and the training code of ViewRefer 📌.
+  
 **[2023.9] We release AAAI2024 ['Point-PEFT'](https://arxiv.org/abs/2310.03059), adapting 3D pre-trained Models with 1% parameters to downstream tasks .**
   
 ## Introduction
