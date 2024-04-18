@@ -8,6 +8,8 @@ The paper has been accepted by **ICCV 2023**.
 * We release the GPT-expanded Sr3D dataset and the training code of ViewRefer 📌.
   
 **[2023.9] We release AAAI2024 ['Point-PEFT'](https://arxiv.org/abs/2310.03059), adapting 3D pre-trained Models with 1% parameters to downstream tasks .**
+
+**[2024.4] We release ['Any2Point'](https://arxiv.org/pdf/2404.07989.pdf), adapting Any-Modality pre-trained Models with 1% parameters to 3D downstream tasks with SOTA performance.**
   
 ## Introduction
 ViewRefer is a multi-view framework for 3D visual grounding, which grasps view knowledge to alleviate the challenging view discrepancy issue. For the text and 3D modalities, we respectively introduce LLM-expanded grounding texts and a fusion transformer for capturing multi-view information. We present multi-view prototypes to provide highlevel guidance to our framework, which contributes to superior 3D grounding performance.
